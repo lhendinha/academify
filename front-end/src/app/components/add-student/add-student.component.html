@@ -1,0 +1,29 @@
+<div class="card-container">
+  <div *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div *ngIf="!isLoading && error == null" class="container">
+    <h3>Student details</h3>
+    <mat-form-field appearance="fill" floatLabel="always">
+      <mat-label>Nome</mat-label>
+      <input matInput type="text" class="form-control" [(ngModel)]="student.nome">
+    </mat-form-field>
+    <mat-form-field appearance="fill" floatLabel="always">
+      <mat-label>Matrícula</mat-label>
+      <input matInput type="text" class="form-control" [(ngModel)]="student.matricula">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Data nascimento</mat-label>
+      <input matInput [matDatepicker]="picker" [formControl]="serializedDate" (dateChange)="onChangeFormDate($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker [startAt]="date"></mat-datepicker>
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button color="gray" class="button" (click)="onClickCancel()">Cancel</button>
+      <button mat-raised-button color="primary" class="button" (click)="onClickCreate()">Confirm</button>
+    </div>
+  </div>
+  <div *ngIf="!isLoading && error != null">
+    Erros: {{error}}
+  </div>
+</div>
